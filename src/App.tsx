@@ -2,7 +2,10 @@
 
 import { View, Epic, SplitLayout, SplitCol} from '@vkontakte/vkui';
 import { AppTabBar, AppModalRoot } from 'components';
+// useActiveVkuiLocation- для определения активных компонентов
 import {useActiveVkuiLocation, usePopout} from '@vkontakte/vk-mini-apps-router';
+
+
 
 import styles from './App.module.css';
 
@@ -12,9 +15,26 @@ const App = () => {
     useActiveVkuiLocation();
   const routerPopout = usePopout();
   const dataContext = useContext(DataContext)
-}
+  const profile = dataContext?.data?.profile;
+  const [adsBannerPadding, setAdsBannerPadding] = useState(0);
 
-// продолжить отсюда
+  useOndoardSlides();
+  useProfile();
+  enableSwipe();
+  useGetUserActiveOrder();
+
+  useEffect(() => {
+    if (!profile?.is_ads_enadled) {
+      return;
+    }
+
+    const checkBannerAds= async () => {
+      const bannerAdsResult = await showBannerAds();
+      setAdsBannerPadding(bannerAdsResult?.banner_height ?? 0);
+    };
+
+    checkBannerAds();
+  }, [profile]);
 
 /*
   Модуль 4. Разработка Урок 2. Знакомство с VKUI #M4L2.
@@ -48,3 +68,6 @@ return (
     </SplitCol>
   </SplitLayout>
 );
+};
+
+export default App;
