@@ -1,5 +1,24 @@
 // src/panels/Dish/DishPanel.tsx
-import { useParams } from '@vkontakte/vk-mini-apps-router';
+import { useEffect, useState } from 'react';
+import {
+  Panel,
+  PanelHeader,
+  PanelHeaderBack,
+  PanelProps,
+} from '@vkontakte/vkui';
+import { 
+  useRouteNavigator,
+  useFirstPageCheck,
+  useParams,
+  useMetaParams,
+} from '@vkontakte/vk-mini-apps-router';
+
+import { OrderInProgress } from 'components';
+import { normalizeError } from 'helpers';
+import { getDish } from 'api/dishes';
+import { TDish } from 'panels/Dishes/types';
+import { PanelContent } from './components';
+
 
 const DishPanel = ({ id }: PanelProps) => {
     const routeNavigator = useRouteNavigator();
