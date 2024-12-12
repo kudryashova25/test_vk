@@ -24,7 +24,7 @@ const App = () => {
   useGetUserActiveOrder();
 
   useEffect(() => {
-    if (!profile?.is_ads_enadled) {
+    if (!profile?.is_ads_enabled) {
       return;
     }
 
@@ -42,7 +42,7 @@ const App = () => {
 */
 return (
   <SplitLayout modal={<AppModalRoot />} popout={routerPopout}>
-    <SplitCol className={StyleSheet.col}>
+    <SplitCol className={styles.col}>
       <Epic
         activeStory={activeView ?? EView.DISHES}
         tabbar={
